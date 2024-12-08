@@ -1,42 +1,51 @@
 package org.configuration;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class ConfigurationCLI {
     public static void main(String[] args){
-        Scanner sc = new Scanner(System.in);
         try {
-            System.out.println("Enter the total number of tickets: ");
-            int totalTickets = positiveInt(sc.nextInt());
+            System.out.println("Enter the total number of tickets(range 0-20): ");
+            int totalTickets = validInputCheck(0, 20);
 
-            System.out.println("Enter the ticket release rate(Released ticket per hour): ");
-            int ticketReleaseRate = positiveInt(sc.nextInt());
+            System.out.println("Enter the ticket release rate(Released ticket per hour)(range 0-20): ");
+            int ticketReleaseRate = validInputCheck(0, 20);
 
-            System.out.println("Enter the customer retrieval rate(Retrieved tickets per hour): ");
-            int customerRetrievalRate = positiveInt(sc.nextInt());
+            System.out.println("Enter the customer retrieval rate(Retrieved tickets per hour)(range 0-20): ");
+            int customerRetrievalRate = validInputCheck(0, 20);
 
-            System.out.println("Enter the maximum ticket capacity: ");
-            int maxTicketCapacity = positiveInt(sc.nextInt());
+            System.out.println("Enter the maximum ticket capacity((range 0-20)): ");
+            int maxTicketCapacity = validInputCheck(0, 20);
 
             Configuration configuration = new Configuration(totalTickets, ticketReleaseRate, customerRetrievalRate, maxTicketCapacity);
 
             configuration.saveConfiguration("configuration.json");
         }
         catch(Exception e){
-            System.out.println(e.getMessage());
+            System.out.println("Sorry an error occurred." + e.getMessage());
         }
     }
 
-    public static int positiveInt(int number) {
+    public static int validInputCheck(int minValue, int maxValue) {
         Scanner sc = new Scanner(System.in);
+        int input = 0;
+        boolean validInput = false;
 
-        // Keep prompting until a positive integer is entered
-        while (number <= 0) {
-            System.out.println("Please enter a positive integer: ");
-            number = sc.nextInt();
+        while(!validInput){
+            try {
+                input = Integer.parseInt(sc.nextLine());
+                if (input >= minValue && input <= maxValue){
+                    validInput = true;
+                } else {
+                    System.out.println("The input must be between " + minValue + "-" + maxValue + ". Try again: ");
+                }
+            } catch(IllegalArgumentException e) {
+                System.out.println("Invalid input. Please enter a valid integer: ");
+            }
         }
-
-        return number; // Return the valid number
+        sc.close();
+        return input;
     }
 
 }
