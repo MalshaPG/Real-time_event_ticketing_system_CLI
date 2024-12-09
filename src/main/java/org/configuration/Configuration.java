@@ -6,7 +6,9 @@ import com.google.gson.GsonBuilder;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class Configuration {
+import java.io.Serializable;
+
+public class Configuration implements Serializable {
     private int totalTickets;
     private int ticketReleaseRate;
     private int customerRetrievalRate;

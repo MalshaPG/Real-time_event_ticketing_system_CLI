@@ -9,11 +9,11 @@ public class ConfigurationCLI {
             System.out.println("Enter the total number of tickets(range 0-20): ");
             int totalTickets = validInputCheck(0, 20);
 
-            System.out.println("Enter the ticket release rate(Released ticket per hour)(range 0-20): ");
-            int ticketReleaseRate = validInputCheck(0, 20);
+            System.out.println("Enter the ticket release rate(milliseconds)(range 5-10): ");
+            int ticketReleaseRate = validInputCheck(5, 10);
 
-            System.out.println("Enter the customer retrieval rate(Retrieved tickets per hour)(range 0-20): ");
-            int customerRetrievalRate = validInputCheck(0, 20);
+            System.out.println("Enter the customer retrieval rate(milliseconds)(range 5-10): ");
+            int customerRetrievalRate = validInputCheck(5, 10);
 
             System.out.println("Enter the maximum ticket capacity((range 0-20)): ");
             int maxTicketCapacity = validInputCheck(0, 20);
@@ -44,7 +44,7 @@ public class ConfigurationCLI {
                 System.out.println("Invalid input. Please enter a valid integer: ");
             }
         }
-        sc.close();
+
         return input;
     }
 
